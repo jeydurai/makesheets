@@ -1,0 +1,38 @@
+require 'makesheets'
+require 'optparse'
+
+options = {}
+option_parser = OptionParser.new do |opts|
+    opts.on("-i", "--infile INFILE", 
+            "Requires Input file path") do |infile|
+        options[:infile] = infile
+    end
+    opts.on("-s", "--sheet SHEET", 
+            "[Infile sheet name]") do |sheet|
+        options[:sheet] = sheet
+    end
+    opts.on("-k", "--skiprows SKIPROWS", 
+            "Number of rows to skip while reading infile") do |skiprows|
+        options[:skiprows] = skiprows
+    end
+    opts.on("-r", "--readrows READABLEROWS", 
+            "Number of rows to be read from infile") do |readrows|
+        options[:readrows] = readrows
+    end
+    opts.on("-o", "--outfile OUTFILE", 
+            "[Optional outfile path]") do |outfile|
+        options[:outfile] = outfile
+    end
+    opts.on("-c", "--column COLUMN", 
+            "<string>Column header by which sheets to be generated") \
+                                                    do |column|
+        options[:column] = column
+    end
+    opts.on("-p", "--prefix PREFIX", 
+            "[Prefix of generated sheets' name]") do |prefix|
+        options[:prefix] = prefix
+    end
+end
+
+option_parser.parse!
+Makesheets.run(options)
